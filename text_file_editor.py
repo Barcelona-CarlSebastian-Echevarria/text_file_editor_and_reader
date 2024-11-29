@@ -5,7 +5,9 @@
 # Draft: Ask the user whether they want to create another file for another profiling
 # Draft: Store each file name in a list for navigation and latter edits
 
-def question_one():
+
+# Obtains the user full name
+def user_full_name():
     while True:
         special_cases = ["-", "'", "."]
         user_name = input("Enter your full name: ")
@@ -24,6 +26,27 @@ def question_one():
     name = name.title()
     return name
 
+# Obtains the user age
+def user_age():
+    while True:
+        try:
+            user_age = int(input("Enter your age (input must be realistic): "))
+            # 122 is the limit, for it's the oldest age recorded for a human
+            if 0 < user_age <= 122:
+                return user_age
+            else:
+                print("Please enter a valid age")
+        except ValueError:
+            print("Enter a numerical input only")
+
+# Formats the information obtained
+# Will determine the format of the information within the txt file
+def text_format():
+    name = user_full_name()
+    age = user_age()
+    return f"Name: {name} | Age: {age}"
+
+# Converts the inputted name into camel_case and creates a txt file with the name 
 def create_file_name():
     while True:
         print("The program will automatically convert the name into camel_case")
@@ -57,14 +80,13 @@ def main():
     file_name = create_file_name()
     # Creates a txt file and appends the input from question functions
     with open(f"{file_name}.txt", "a") as file_name:
-        # Not yet finalized, for draft only
-        file_name.write(question_one())
-        
+        file_name.write(text_format())
+
         # Asks the user if it wants to add additional information
         while True:
             user_option = input("Do you want to add more information? (press 'y' to proceed; 'n' to exit): ")
             if user_option == 'y':
-                file_name.write(question_one())
+                file_name.write(text_format())
             elif user_option == 'n':
                 quit()
             else:
