@@ -6,6 +6,7 @@
 # Draft: Store each file name in a list for navigation and latter edits
 
 
+
 # Obtains the user full name
 def user_full_name():
     while True:
@@ -13,18 +14,16 @@ def user_full_name():
         user_name = input("Enter your full name: ")
         user_name = user_name.split()
         name = (''.join(user_name))
-        if name.isalpha() and len(name) >= 2:
-            break
-        # Checks if there's an occurrence of special characters within the name
-        elif any(elements in special_cases for elements in name): 
-            break
+        if len(name) >= 2:
+            if any(elements in special_cases for elements in name) or name.isalpha():
+                    name = (' '.join(user_name))
+                    # Makes the first letters of the words capitalized
+                    name = name.title()
+                    return name
+            else:
+                print(f"Name contains invalid characters. Only letters, digits, and {special_cases} are allowed.")
         else:
             print("Enter a valid name")
-
-    name = (' '.join(user_name))
-    # Makes the first letters of the words capitalized
-    name = name.title()
-    return name
 
 # Obtains the user age
 def user_age():
@@ -39,12 +38,30 @@ def user_age():
         except ValueError:
             print("Enter a numerical input only")
 
+# Obtains user address
+def user_full_address():
+    special_cases = ["-", "'", ".", ",", "/"]
+    while True:
+        user_address = input("Enter your full address (Max of 60): ")
+        user_address = user_address.split()
+        user_address = (''.join(user_address))
+        if 11 <= len(user_address) <= 60:
+            if any(elements in special_cases for elements in user_address) or user_address.isalnum():
+                    user_address = (' '.join(user_address))
+                    user_address = user_address.title()
+                    return user_address
+            else:
+                print(f"Address contains invalid characters. Only letters, digits, and {special_cases} are allowed.")
+        else:
+            print("Enter a valid address (must be more than 10 characters long)")
+    
 # Formats the information obtained
 # Will determine the format of the information within the txt file
 def text_format():
     name = user_full_name()
     age = user_age()
-    return f"Name: {name} | Age: {age}"
+    address = user_full_address()
+    return f"Name: {name} | Age: {age} | Address: {address}"
 
 # Converts the inputted name into camel_case and creates a txt file with the name 
 def create_file_name():
@@ -86,7 +103,7 @@ def main():
         while True:
             user_option = input("Do you want to add more information? (press 'y' to proceed; 'n' to exit): ")
             if user_option == 'y':
-                file_name.write(text_format())
+                file_name.write(f"\n{text_format()}")
             elif user_option == 'n':
                 quit()
             else:
