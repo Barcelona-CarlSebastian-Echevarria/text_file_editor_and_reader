@@ -71,7 +71,7 @@ def user_full_address():
 def user_contact_number():
     while True:
         try:
-            user_number = int(input("Enter your contact number (input must be 11 characters only): +63|"))
+            user_number = int(input("Enter your contact number (input must be 10 characters only): +63|"))
             user_number = str(user_number)
             if user_number.isdigit() and len(user_number) == 10:
                   return f"+63{user_number}"
@@ -132,7 +132,7 @@ def create_file_name():
             print("Please enter a valid name (Pure numerical name is not allowed)")
         else:
             index_list = []
-            # Converts the name in a camel_case format if there's no occurrence of a number within the name
+            # Converts the name in a snake_case format if there's no occurrence of a number within the name
             user_input = user_input.lower()
             user_input = user_input.split()
             user_input = ('_'.join(user_input))
@@ -148,10 +148,13 @@ def create_file_name():
                 for indices in range(len(user_input)):
                     if indices == index_of_number:
                         valid_name = user_input[:index_of_number] + "_" + user_input[index_of_number:]
-                        return valid_name
+                        break
             else:
                 valid_name = user_input
-                return valid_name
+            
+            # .replace() idea came from freecodecamp.org and was tailored accordingly to the program's needs
+            valid_name = valid_name.replace("__", "_")
+            return valid_name
 
 # Handles all the program's functionalities
 def main():
