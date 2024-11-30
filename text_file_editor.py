@@ -10,7 +10,7 @@ profiles_list = []
 # The file created here is not permanent
 def data_path(file_name):
     with open("text_file_editor.txt", "w") as file:
-        file.write("Note: The following file is uploaded via a text_file_editor.py. You can access it via the text_file_reader.py")
+        file.write("Note: The following data is uploaded via text_file_editor.py. You can access it via the text_file_reader.py")
         file.write(f"\nFile name:\n{file_name}\nProfiles:")
         for profiles in profiles_list:
             file.write(f"\n{profiles}")
