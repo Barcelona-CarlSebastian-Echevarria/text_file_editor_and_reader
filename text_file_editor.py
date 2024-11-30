@@ -6,14 +6,17 @@
 # Draft: Store each file name in a list for navigation and latter edits
 
 profiles_list = []
+file_list = []
 # Creates a bridging file to connect the editor and the reader
 # The file created here is not permanent
-def data_path(file_name):
+def data_path(file_list, profiles_list):
     with open("text_file_editor.txt", "w") as file:
         file.write("Note: The following data is uploaded via text_file_editor.py. You can access it via the text_file_reader.py")
+        for name in file_list:
+            file_name = name
         file.write(f"\nFile name:\n{file_name}\nProfiles:")
-        for profiles in profiles_list:
-            file.write(f"\n{profiles}")
+        for profile in profiles_list:
+            file.write(f"\n{profile}")
 
 # Obtains the user full name
 def user_full_name():
@@ -120,10 +123,10 @@ def text_format():
     blood_type = user_blood_type()
     return f"Name: {name} | Age: {age} | Address: {address} | Contact Number: {contact_number} | Religion: {religion} | Blood Type: {blood_type}"
 
-# Converts the inputted name into camel_case and creates a txt file with the name 
+# Converts the inputted name into snake_case and creates a txt file with the name 
 def create_file_name():
     while True:
-        print("The program will automatically convert the name into camel_case")
+        print("The program will automatically convert the name into snake case")
         user_input = input("What do you want to name your txt file?: ")
         if user_input.isdigit():
             print("Please enter a valid name (Pure numerical name is not allowed)")
@@ -154,22 +157,20 @@ def create_file_name():
 def main():
     file_name = create_file_name()
     # Temporarily stores the name of the txt file
-    file_list = []
     file_list.append(file_name)
-    # Creates a txt file and appends the input from question functions
-    with open(f"{file_name}.txt", "a") as file_name:
-        file_name.write(text_format())
+    with open(f"{file_name}.txt", "a") as file:
+        file.write(text_format())
 
         # Asks the user if it wants to add additional information
         while True:
             user_option = input("Do you want to add more information? (press 'y' to proceed; 'n' to exit): ")
             if user_option == 'y':
-                file_name.write(f"\n{text_format()}")
+                file.write(f"\n{text_format()}")
             elif user_option == 'n':
                 # Used to define the name of the list when uploaded to the txt file
-                file_name = file_list[0]
-                data_path(file_name)
+                data_path(file_list, profiles_list)
                 print("Data has been successfully uploaded. Please proceed to text_file_reader.py")
+                break
             else:
                 print("Please respond with only what's specified")
 
