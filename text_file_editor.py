@@ -53,11 +53,11 @@ def user_full_address():
     while True:
         user_address = input("Enter your full address (Max of 60): ")
         user_address = user_address.split()
-        user_address = (''.join(user_address))
-        if 11 <= len(user_address) <= 60:
-            if any(elements in special_cases for elements in user_address) or user_address.isalnum():
-                    user_address = (' '.join(user_address))
-                    user_address = user_address.title()
+        valid_address = (''.join(user_address))
+        if 11 <= len(valid_address) <= 60:
+            if any(elements in special_cases for elements in valid_address) or valid_address.isalnum():
+                    valid_address = (' '.join(user_address))
+                    user_address = valid_address.title()
                     return user_address
             else:
                 print(f"Address contains invalid characters. Only letters, digits, and {special_cases} are allowed.")
@@ -102,9 +102,12 @@ def create_file_name():
                 valid_name = user_input
                 return valid_name
 
+# Handles all the program's functionalities
 def main():
     file_name = create_file_name()
-    data_path(file_name=file_name)
+    # Temporarily stores the name of the txt file
+    file_list = []
+    file_list.append(file_name)
     # Creates a txt file and appends the input from question functions
     with open(f"{file_name}.txt", "a") as file_name:
         file_name.write(text_format())
@@ -115,7 +118,10 @@ def main():
             if user_option == 'y':
                 file_name.write(f"\n{text_format()}")
             elif user_option == 'n':
-                quit()
+                # Used to define the name of the list when uploaded to the txt file
+                file_name = file_list[0]
+                data_path(file_name)
+                print("Data has been successfully uploaded. Please proceed to text_file_reader.py")
             else:
                 print("Please respond with only what's specified")
 

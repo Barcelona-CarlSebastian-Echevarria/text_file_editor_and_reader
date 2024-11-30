@@ -15,5 +15,4 @@ with open("text_file_editor.txt", "r") as file:
 file_path = filter_list[2]
 name_list = filter_list[4:]
 print(file_path)
-# Not yet working
 print(name_list)
