@@ -77,6 +77,38 @@ def user_contact_number():
         except ValueError:
             print("Enter a numerical input only")
 
+# Obtains the user religion
+def user_official_religion():
+    religions = ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism", "Sikhism", "Not in the list"]
+    print("Choose which faith you're affiliated with from the following list:")
+    for index, value in enumerate(religions):
+        print(f"{index + 1}. {value}")
+
+    while True:
+        user_religion = int(input("Press 1-7 to choose your religion: "))
+        if user_religion not in range(1, 8):
+            print("Please enter a response from the range specified")
+        else:
+            for index, value in enumerate(religions):
+                if user_religion == index + 1:
+                 return f"{value}"
+                
+# Obtains the user blood type
+def user_blood_type():
+    blood_types = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+    print(f"You may choose your type from the following list:")
+    for index, value in enumerate(blood_types):
+     print(f"{index + 1}. {value}")
+
+    while True:
+        user_type = int(input("From left to right, press 1-8 to choose your type: "))
+        if user_type not in range(1, 9):
+            print("Please enter a response from the range specified")
+        else:
+            for index, value in enumerate(blood_types):
+                if user_type == index + 1:
+                 return f"{value}"
+
 # Formats the information obtained
 # Will determine the format of the information within the txt file
 def text_format():
@@ -84,7 +116,9 @@ def text_format():
     age = user_age()
     address = user_full_address()
     contact_number = user_contact_number()
-    return f"Name: {name} | Age: {age} | Address: {address} | Contact Number: {contact_number}"
+    religion = user_official_religion()
+    blood_type = user_blood_type()
+    return f"Name: {name} | Age: {age} | Address: {address} | Contact Number: {contact_number} | Religion: {religion} | Blood Type: {blood_type}"
 
 # Converts the inputted name into camel_case and creates a txt file with the name 
 def create_file_name():
