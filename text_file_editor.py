@@ -63,14 +63,28 @@ def user_full_address():
                 print(f"Address contains invalid characters. Only letters, digits, and {special_cases} are allowed.")
         else:
             print("Enter a valid address (must be more than 10 characters long)")
-    
+
+# Obtains the user contact number
+def user_contact_number():
+    while True:
+        try:
+            user_number = int(input("Enter your contact number (input must be 11 characters only): +63|"))
+            user_number = str(user_number)
+            if user_number.isdigit() and len(user_number) == 10:
+                  return f"+63{user_number}"
+            else:
+                  print("Please enter a valid contact number")
+        except ValueError:
+            print("Enter a numerical input only")
+
 # Formats the information obtained
 # Will determine the format of the information within the txt file
 def text_format():
     name = user_full_name()
     age = user_age()
     address = user_full_address()
-    return f"Name: {name} | Age: {age} | Address: {address}"
+    contact_number = user_contact_number()
+    return f"Name: {name} | Age: {age} | Address: {address} | Contact Number: {contact_number}"
 
 # Converts the inputted name into camel_case and creates a txt file with the name 
 def create_file_name():
