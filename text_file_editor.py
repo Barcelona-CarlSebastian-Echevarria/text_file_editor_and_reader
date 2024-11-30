@@ -5,7 +5,15 @@
 # Draft: Ask the user whether they want to create another file for another profiling
 # Draft: Store each file name in a list for navigation and latter edits
 
-
+profiles_list = []
+# Creates a bridging file to connect the editor and the reader
+# The file created here is not permanent
+def data_path(file_name):
+    with open("text_file_editor.txt", "w") as file:
+        file.write("Note: The following file is uploaded via a text_file_editor.py. You can access it via the text_file_reader.py")
+        file.write(f"\nFile name:\n{file_name}\nProfiles:")
+        for profiles in profiles_list:
+            file.write(f"\n{profiles}")
 
 # Obtains the user full name
 def user_full_name():
@@ -19,6 +27,7 @@ def user_full_name():
                     name = (' '.join(user_name))
                     # Makes the first letters of the words capitalized
                     name = name.title()
+                    profiles_list.append(name)
                     return name
             else:
                 print(f"Name contains invalid characters. Only letters, digits, and {special_cases} are allowed.")
@@ -95,6 +104,7 @@ def create_file_name():
 
 def main():
     file_name = create_file_name()
+    data_path(file_name=file_name)
     # Creates a txt file and appends the input from question functions
     with open(f"{file_name}.txt", "a") as file_name:
         file_name.write(text_format())
@@ -109,4 +119,5 @@ def main():
             else:
                 print("Please respond with only what's specified")
 
+    
 main()
