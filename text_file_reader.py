@@ -64,7 +64,7 @@ def frontend_prompt():
     while True:
         user_option = input("Do you want to see more profiles? (press 'y' to proceed; 'n' to exit): ").lower()
         if user_option == "y":
-            info_reader()
+            print(info_reader())
         elif user_option == "n":
             break
         else:
